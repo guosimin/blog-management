@@ -1,0 +1,68 @@
+<title><%= appName %></title>
+<style>
+    .w-e-text-container{height: 600px!important;}
+</style>
+<link rel="stylesheet" href="/lib/layui/css/layui.css">
+
+<script src="https://cdn.bootcss.com/jquery/1.10.0/jquery.min.js"></script>
+
+<!--layui框架-->
+<script src="/lib/layui/layui.all.js"></script>
+<!--编辑器-->
+<script src="//unpkg.com/wangeditor/release/wangEditor.min.js"></script>
+<!--moment-->
+<script src="https://cdn.bootcss.com/moment.js/2.20.1/moment.min.js"></script>
+
+<div class="layui-layout ">
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item">
+                    <a title="发布博客">发布博客</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body" style="padding: 0 15px; height: 100%;box-sizing: border-box;margin-bottom:-105px;">
+        <!-- 内容主体区域 -->
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>博客发布</legend>
+        </fieldset>
+
+        <div class="layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><b style="color: red;">*</b> 标题</label>
+                <div class="layui-input-block">
+                    <input type="text"
+                           id="input-area__input"
+                           name="title"
+                           placeholder="请输入标题" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">描述</label>
+                <div class="layui-input-block">
+                    <input type="text"
+                           id="input-area__categories"
+                           name="title"
+                           placeholder="请输入描述" maxlength="20" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label"><b style="color: red;">*</b> 内容</label>
+                <div class="layui-input-block">
+                    <div id="input-area__textarea"></div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="text-align: right">
+                    <button class="layui-btn" id="input-area__btn">立即提交</button>
+                    <button id="input-area__clear" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/javascripts/page/index/index.js"></script>
