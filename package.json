@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "debug": "^2.6.3",
-    "ejs": "~2.3.3",
+    "ejs": "^2.5.7",
     "g_common_fn": "^1.0.6",
     "koa": "^2.5.0",
     "koa-bodyparser": "^3.2.0",
@@ -23,6 +23,6 @@
     "koa-views": "^5.2.1"
   },
   "devDependencies": {
-    "nodemon": "^1.15.1"
+    "nodemon": "^1.17.1"
   }
 }

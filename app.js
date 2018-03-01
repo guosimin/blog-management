@@ -4,7 +4,9 @@ const views = require('koa-views');
 const json = require('koa-json');
 const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser');
-const logger = require('koa-logger');
+
+// https://www.npmjs.com/package/koa-logger
+const logger = require('koa-logger'); //用于打印请求数据
 
 const index = require('./routes/index');
 const users = require('./routes/users');
