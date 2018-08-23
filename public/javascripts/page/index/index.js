@@ -18,9 +18,13 @@ editor.customConfig.uploadImgShowBase64 = true;
 editor.create();
 
 //监听提交
-$("#input-area__btn").click(function () {
+$(".input-area__btn").click(function () {
     if($("#input-area__input").val()&&editor.txt.html()){
         var time = moment();
+        var dataType = '';
+        if($(this).data("type")=="html"){
+            dataType = "html";
+        }
         $.ajax({
             url: "/fs",
             method : 'post',
@@ -30,11 +34,12 @@ $("#input-area__btn").click(function () {
                 desc:editor.txt.html(),
                 categories:$('#input-area__categories').val(),
                 time:time.format('YYYY-MM-DD'),
+                dataType:dataType,
                 date:moment().format('YYYY-MM-DD HH:mm:ss')
             }),
             dataType: 'json',
             success: function(){
-                consol.log("保存成功");
+                console.log("保存成功");
             }
         });
     }else{
