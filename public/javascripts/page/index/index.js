@@ -39,7 +39,7 @@ $(".input-area__btn").click(function () {
             }),
             dataType: 'json',
             success: function(){
-                console.log("保存成功");
+                alert("保存成功");
             }
         });
     }else{
