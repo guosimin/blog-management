@@ -6,7 +6,8 @@
     "start": "node bin/www",
     "dev": "./node_modules/.bin/nodemon bin/www",
     "prd": "pm2 start bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode development"
   },
   "dependencies": {
     "debug": "^2.6.3",
@@ -20,9 +21,15 @@
     "koa-onerror": "^1.2.1",
     "koa-router": "^7.4.0",
     "koa-static": "^3.0.0",
-    "koa-views": "^5.2.1"
+    "koa-views": "^5.2.1",
+    "lodash": "^4.17.10"
   },
   "devDependencies": {
-    "nodemon": "^1.17.1"
+    "gulp": "^3.9.1",
+    "gulp-sequence": "^1.0.0",
+    "nodemon": "^1.17.1",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-stream": "^5.1.1"
   }
 }

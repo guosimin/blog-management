@@ -3,6 +3,9 @@
 ### 安装
 > npm install
 
+### 编译js
+> npm run build
+
 ### 启动
 > npm run start 
 

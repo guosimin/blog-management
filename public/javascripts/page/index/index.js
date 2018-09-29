@@ -12,16 +12,16 @@
 
 
 //生成文档编辑器
-var E = window.wangEditor;
-var editor = new E('#input-area__textarea');
+let E = window.wangEditor;
+let editor = new E('#input-area__textarea');
 editor.customConfig.uploadImgShowBase64 = true;
 editor.create();
 
 //监听提交
 $(".input-area__btn").click(function () {
     if($("#input-area__input").val()&&editor.txt.html()){
-        var time = moment();
-        var dataType = '';
+        let time = moment();
+        let dataType = '';
         if($(this).data("type")=="html"){
             dataType = "html";
         }
@@ -54,3 +54,4 @@ $("#input-area__clear").click(function () {
     $("#input-area__input").val('');
     editor.txt.clear();
 });
+

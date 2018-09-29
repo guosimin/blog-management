@@ -1,6 +1,5 @@
 const router = require('koa-router')()
 const fs = require('fs');
-const __copy = require('g_common_fn').copy;
 const __template = require('../public/template/index');
 
 /**
@@ -33,15 +32,17 @@ router.get('/', async (ctx, next) => {
 });
 
 router.post('/fs', (ctx, next) => {
-    var data = ctx.request.body;
-    var dataType = 'blog';
+    let data = ctx.request.body;
+    let dataType = 'blog';
     if(data.dataType=='html'){
         dataType = 'html';
     }
     // console.log(`${JSON.stringify(data)},ctx.request.body`);
-    var link = './views/'+dataType+'/'+data.time+"-"+data.title+'.html';
+    let link = './views/'+dataType+'/'+data.time+"-"+data.title+'.html';
     return new Promise(function (resolve, reject) {
+        //先删除文件
         fs.unlink(link, (err) => {
+            // 然后重新写入
             write(link,data,(err) => {
                 ctx.response.body = {
                     success:true,

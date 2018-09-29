@@ -13,7 +13,7 @@
 
 module.exports = function (data={}) {
     //样式
-    var style = `
+    let style = `
             <link rel="stylesheet" href="../../public/lib/layui/css/layui.css">
             <style>
                 .w-e-text{padding: 0 10px;overflow-y: scroll;}
@@ -39,7 +39,7 @@ module.exports = function (data={}) {
             </style>`;
 
     //头部
-    var head =`
+    let head =`
         <head>
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
@@ -48,7 +48,7 @@ module.exports = function (data={}) {
         </head>	
     `;
 
-    var template = `
+    let template = `
     <!DOCTYPE html>
     <html>
         ${head}
