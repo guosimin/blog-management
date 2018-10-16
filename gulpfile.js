@@ -14,6 +14,11 @@ Object.keys(entry).forEach(function (key) {
             .pipe(webpackStream({
                 output:{
                     filename:'js/'+key+'.bundle.js'//打包后的名字
+                },
+                resolve: {
+                    alias: {
+                        vue: 'vue/dist/vue.js'
+                    }
                 }
             }))
             .pipe(gulp.dest('./public/dist'));

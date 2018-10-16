@@ -14,4 +14,9 @@ module.exports = {
         path:path.resolve(__dirname, './public/dist'),
         filename: 'js/[id].bundle.js',
     },
+    resolve: {
+        alias: {
+            vue: 'vue/dist/vue.js'
+        }
+    }
 };

@@ -27,7 +27,9 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-sequence": "^1.0.0",
+    "mongodb": "^3.1.6",
     "nodemon": "^1.17.1",
+    "vue": "^2.5.17",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0",
     "webpack-stream": "^5.1.1"

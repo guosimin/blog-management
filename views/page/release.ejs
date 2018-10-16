@@ -1,0 +1,40 @@
+<div class="layui-body" style="padding: 0 15px; height: 100%;box-sizing: border-box;margin-bottom:-105px;">
+    <!-- 内容主体区域 -->
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>博客发布</legend>
+    </fieldset>
+
+    <div class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><b style="color: red;">*</b> 标题</label>
+            <div class="layui-input-block">
+                <input type="text"
+                       id="input-area__input"
+                       name="title"
+                       placeholder="请输入标题" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-block">
+                <input type="text"
+                       id="input-area__categories"
+                       name="title"
+                       placeholder="请输入描述" maxlength="20" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label"><b style="color: red;">*</b> 内容</label>
+            <div class="layui-input-block">
+                <div id="input-area__textarea"></div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="text-align: right">
+                <button class="layui-btn layui-btn-normal input-area__btn" data-type="html">生成网页博客</button>
+                <button class="layui-btn input-area__btn">生成博客</button>
+                <button id="input-area__clear" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>
+</div>
