@@ -1,13 +1,18 @@
 /**
- *
+ * 公共方法
  *
  * Author:   gsm(qq:2479186745)
  * History:
  * Date         Version Remarks
  * ============ ======= ======================================================
- * 2018/9/20      1.0     First version
+ * 2018/10/19      1.0     First version
  *
  * Copyright 2016, all rights reserved. Essa.cn
  * */
 
-alert("aa43334=3335");
+module.exports ={
+    //去除字符串中的空格
+    trim(str){
+        return str.replace(/[ ]/g,"");
+    }
+}

@@ -10,8 +10,9 @@
  * Copyright 2016, all rights reserved. Essa.cn
  * */
 
-var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/';
+let MongoClient = require('mongodb').MongoClient;
+let ObjectId = require('mongodb').ObjectId;
+let url = 'mongodb://localhost:27017/';
 
 
 module.exports = {
@@ -35,7 +36,6 @@ module.exports = {
                 });
             });
         })
-
     },
     /**
      * @param option
@@ -44,7 +44,7 @@ module.exports = {
      *    obj <object||Array> 插入数据
      * }
      */
-    update:function (option={}) {
+    insert:function (option={}) {
         return new Promise(function (resolve,reject) {
             MongoClient.connect(url, function(err, db) {
                 if (err) throw err;
@@ -68,6 +68,20 @@ module.exports = {
             });
         })
     },
+    update:function (option={}) {
+        return new Promise(function (resolve,reject) {
+            MongoClient.connect(url, function(err, db) {
+                if (err) throw err;
+                var dbase = db.db("blog");
+                dbase.collection(option.tableName).updateMany({_id:ObjectId(option.oldObj._id)},{$set:option.obj},function (err, res) {
+                    if (err) throw err;
+                    console.log(res.result.nModified + " 条文档被更新");
+                    db.close();
+                    resolve();
+                });
+            });
+        })
+    },
     /**
      * @param option
      * {
@@ -80,7 +94,9 @@ module.exports = {
             MongoClient.connect(url, function(err, db) {
                 if (err) throw err;
                 var dbase = db.db("blog");
-                dbase.collection(option.tableName). find(option.obj).toArray(function(err, result) { // 返回集合中所有数据
+                dbase.collection(option.tableName).find(option.obj)
+                    .sort(option.sort||{})
+                    .toArray(function(err, result) { // 返回集合中所有数据
                     if (err) throw err;
                     db.close();
                     resolve(result);

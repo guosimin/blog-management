@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./public/javascripts/page/index/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./public/javascripts/page/index/list.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -141,15 +141,15 @@ eval("var g;\r\n\r\n// This works in non-strict mode\r\ng = (function() {\r\n\tr
 
 /***/ }),
 
-/***/ "./public/javascripts/page/index/index.js":
-/*!************************************************!*\
-  !*** ./public/javascripts/page/index/index.js ***!
-  \************************************************/
+/***/ "./public/javascripts/page/index/list.js":
+/*!***********************************************!*\
+  !*** ./public/javascripts/page/index/list.js ***!
+  \***********************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.js\");\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);\n/**\r\n * 发布博客页\r\n *\r\n * Author:   gsm(qq:2479186745)\r\n * History:\r\n * Date         Version Remarks\r\n * ============ ======= ======================================================\r\n * 2018/1/12      1.0     First version\r\n *\r\n * Copyright 2016, all rights reserved. Essa.cn\r\n * */\r\n\r\n\r\n//生成文档编辑器\r\nlet editor;\r\nif($(\"#input-area__textarea\").length>0){\r\n    let E = window.wangEditor;\r\n    let editor = new E('#input-area__textarea');\r\n    editor.customConfig.uploadImgShowBase64 = true;\r\n    editor.create();\r\n}\r\n\r\n\r\n//监听提交\r\n$(\".input-area__btn\").click(function () {\r\n    if($(\"#input-area__input\").val()&&editor.txt.html()){\r\n        let time = moment();\r\n        let dataType = '';\r\n        if($(this).data(\"type\")==\"html\"){\r\n            dataType = \"html\";\r\n        }\r\n        $.ajax({\r\n            url: \"/fs\",\r\n            method : 'post',\r\n            contentType: 'application/json',\r\n            data: JSON.stringify({\r\n                title:$(\"#input-area__input\").val(),\r\n                desc:editor.txt.html(),\r\n                categories:$('#input-area__categories').val(),\r\n                time:time.format('YYYY-MM-DD'),\r\n                dataType:dataType,\r\n                date:moment().format('YYYY-MM-DD HH:mm:ss')\r\n            }),\r\n            dataType: 'json',\r\n            success: function(resp){\r\n                layer.msg(resp.message, {\r\n                    time: 2000, //2s后自动关闭\r\n                    btn: ['知道了', '关闭']\r\n                });\r\n            }\r\n        });\r\n    }else{\r\n        layer.msg('请输入标题和内容');\r\n    }\r\n});\r\n\r\n/**\r\n * 重置\r\n */\r\n$(\"#input-area__clear\").click(function () {\r\n    $(\"#input-area__input,#input-area__categories\").val('');\r\n    editor.txt.clear();\r\n});\r\n\r\n\r\nvar a = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({\r\n    el: '#app',\r\n    data: {\r\n        message: 23333\r\n    }\r\n});\r\n\n\n//# sourceURL=webpack:///./public/javascripts/page/index/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.js\");\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);\n/**\r\n * 管理博客列表\r\n *\r\n * Author:   gsm(qq:2479186745)\r\n * History:\r\n * Date         Version Remarks\r\n * ============ ======= ======================================================\r\n * 2018/10/16      1.0     First version\r\n *\r\n * Copyright 2016, all rights reserved. Essa.cn\r\n * */\r\n\r\n/**\r\n * 发布博客页\r\n *\r\n * Author:   gsm(qq:2479186745)\r\n * History:\r\n * Date         Version Remarks\r\n * ============ ======= ======================================================\r\n * 2018/1/12      1.0     First version\r\n *\r\n * Copyright 2016, all rights reserved. Essa.cn\r\n * */\r\n\r\n\r\n$(document).ready(function () {\r\n    function _init() {\r\n        new vue__WEBPACK_IMPORTED_MODULE_0___default.a({\r\n            el:'#app',\r\n            data:{\r\n                list:__DATA.list\r\n            },\r\n            filters:{\r\n                date:function (date,format) {\r\n                    if(isNaN(Number(date))){\r\n                        return '';\r\n                    }else{\r\n                        return moment(new Date(Number(date))).format(format);\r\n\r\n                    }\r\n                }\r\n            }\r\n        })\r\n    }\r\n\r\n    //-- =======================================初始化===========================================\r\n    _init();\r\n});\r\n\n\n//# sourceURL=webpack:///./public/javascripts/page/index/list.js?");
 
 /***/ })
 

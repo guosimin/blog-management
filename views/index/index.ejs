@@ -6,22 +6,20 @@
     </style>
     <link rel="stylesheet" href="/lib/layui/css/layui.css">
 
-    <script src="https://cdn.bootcss.com/jquery/1.10.0/jquery.min.js"></script>
+    <script src="/lib/jquery/jquery-1.10.0.min.js"></script>
 
     <!--layui框架-->
     <script src="/lib/layui/layui.all.js"></script>
     <!--编辑器-->
     <script src="/lib/wangEditor/wangEditor.js"></script>
     <!--moment-->
-    <script src="https://cdn.bootcss.com/moment.js/2.20.1/moment.min.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+    <script src="/lib/moment/moment.min.js"></script>
 </head>
 <body>
-    <div class="layui-layout"  id="app">
+    <div class="layui-layout">
         <%- include('../common/menu.ejs'); %>
         <%- include('../page/'+locals.data.tpl); %>
     </div>
-    <script src="/dist/js/index.bundle.js"></script>
 </body>
 </html>
 

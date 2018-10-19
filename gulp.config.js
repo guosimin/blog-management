@@ -12,7 +12,8 @@
 
 module.exports = {
     entry:{
-        'index':'./public/javascripts/page/index/index.js',
-        // 'user':'./public/javascripts/page/user/index.js'
+        // 'index':'./public/javascripts/page/index/index.js',
+        'list':'./public/javascripts/page/index/list.js',
+        'editor':'./public/javascripts/page/index/editor.js'
     }
 }

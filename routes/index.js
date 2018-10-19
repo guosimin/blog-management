@@ -2,6 +2,7 @@ const router = require('koa-router')()
 const fs = require('fs');
 const __template = require('../public/template/index');
 const mongodb = require('./common/mongo');
+const func = require('./common/func');
 
 /**
  * 录入博文
@@ -9,7 +10,6 @@ const mongodb = require('./common/mongo');
 
 function write(link,data,callBack) {
     var page = data.dataType=='html'?__template.html(data):__template.blog(data);
-
     fs.appendFile(link, page, 'utf8', function(err){
         if (err){
             throw err
@@ -28,7 +28,7 @@ function write(link,data,callBack) {
 router.get('/', async (ctx, next) => {
   ctx.state.appName = '后台管理';
     ctx.state.data ={
-        tpl:'release'
+        tpl:'editor'
     }
   await ctx.render('index/index', {
     title: 'Hello Koa 2!'
@@ -38,7 +38,7 @@ router.get('/', async (ctx, next) => {
 router.get('/release', async (ctx, next) => {
     ctx.state.appName = '博客发布';
     ctx.state.data ={
-        tpl:'release'
+        tpl:'editor'
     }
     await ctx.render('index/index', {
         title: 'Hello Koa 2!'
@@ -52,7 +52,22 @@ router.get('/list', async (ctx, next) => {
     }
     ctx.state.data.list =await mongodb.find({
         tableName:'list',
-        obj:{}
+        obj:{},
+        sort:{create_time:-1}
+    });
+    await ctx.render('index/index');
+});
+
+router.get('/list/editor', async (ctx, next) => {
+    ctx.state.appName = (ctx.query&&ctx.query.name)||'编辑';
+    ctx.state.data ={
+        tpl:"editor"
+    }
+    ctx.state.data.list =await mongodb.find({
+        tableName:'list',
+        obj:{
+            title:ctx.query&&ctx.query.name||''
+        }
     });
     await ctx.render('index/index');
 });
@@ -60,36 +75,49 @@ router.get('/list', async (ctx, next) => {
 
 router.post('/fs', async(ctx, next) => {
     let data = ctx.request.body;
-    let dataType = 'blog';
-    if(data.dataType=='html'){
-        dataType = 'html';
-    }
-    // console.log(`${JSON.stringify(data)},ctx.request.body`);
-    let link = './build/'+dataType+'/'+data.time+"-"+data.title+'.html';
-    await mongodb.update({
+    let mongoPostData = {
         tableName:'list',
         obj:{
-            title: data.title,
+            title: func.trim(data.title),
             desc: data.desc,
-            categories: data.categories,
-            time: new Date().getTime(),
-            dataType: dataType==1?1:2,
-            date: new Date().getTime()
+            categories: func.trim(data.categories),
+            create_time: new Date().getTime(),
+            status: 1,
+            update_time: new Date().getTime()
         }
-    });
-    await new Promise(function (resolve, reject) {
-        //先删除文件
-        fs.unlink(link, (err) => {
-            // 然后重新写入
-            write(link,data,(err) => {
-                ctx.response.body = {
-                    success:true,
-                    message:err?'博文已被创建':'博文已被更新'
-                };
-                resolve();
+    };
+    if(!data.isEditor){
+        await mongodb.insert(mongoPostData);
+    }else{
+        mongoPostData = Object.assign({oldObj:data.oldObj},mongoPostData)
+        await mongodb.update(mongoPostData);
+    }
+
+    let dataType = data.dataType||'';
+    if(dataType!='save'){
+        let link =`./build/${dataType}/${data.time}-${data.title}.html`;
+        await new Promise(function (resolve, reject) {
+            //先删除文件
+            fs.unlink(link, (err) => {
+                // 然后重新写入
+                write(link,data,(err) => {
+                    ctx.response.body = {
+                        success:true,
+                        message:data.isEditor?'博文修改成功并已生成':'博文保存成功并已生成'
+                    };
+                    resolve();
+                });
             });
         });
-    });
+    }else{
+        await new Promise(function (resolve, reject) {
+            ctx.response.body = {
+                success:true,
+                message:data.isEditor?'博文修改成功':'博文保存成功'
+            };
+            resolve();
+        });
+    }
 });
 
 
