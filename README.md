@@ -1,5 +1,7 @@
 # blog-management 博文发布
 
+环境准备：node,mongodb
+
 ### 安装
 > npm install
 
