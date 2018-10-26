@@ -1,21 +1,24 @@
+
 <div class="layui-side layui-bg-black">
     <div class="layui-side-scroll">
         <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
         <ul class="layui-nav layui-nav-tree" lay-filter="test">
-            <li class="layui-nav-item layui-nav-itemed">
-                <a href="#" title="博客管理">
-                    博客管理
-                    <span class="layui-nav-more"></span>
-                </a>
-                <dl class="layui-nav-child">
-                    <dd>
-                        <a href="/release" title="博客发布">博客发布</a>
-                    </dd>
-                    <dd>
-                        <a href="/list" title="管理博客">管理博客</a>
-                    </dd>
-                </dl>
-            </li>
+            <% for(var i= 0;i<locals.data.menuList.length;i++){%>
+                <% __MENU = locals.data.menuList;%>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="#" title="<%= __MENU[i].name%>">
+                        <%= __MENU[i].name%>
+                        <span class="layui-nav-more"></span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <% for(var j= 0;j<__MENU[i].menu.length;j++){%>
+                            <dd>
+                                <a href="/<%= __MENU[i].menu[j].link%>" title="<%= __MENU[i].menu[j].name%>"><%= __MENU[i].menu[j].name%></a>
+                            </dd>
+                        <% }%>
+                    </dl>
+                </li>
+            <% }%>
         </ul>
     </div>
 </div>

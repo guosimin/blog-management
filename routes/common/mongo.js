@@ -13,6 +13,7 @@
 let MongoClient = require('mongodb').MongoClient;
 let ObjectId = require('mongodb').ObjectId;
 let url = 'mongodb://localhost:27017/';
+let config = require("../config/config")
 
 
 module.exports = {
@@ -48,7 +49,7 @@ module.exports = {
         return new Promise(function (resolve,reject) {
             MongoClient.connect(url, function(err, db) {
                 if (err) throw err;
-                var dbase = db.db("blog");
+                var dbase = db.db(config.db);
                 if(Array.isArray(option.obj)){
                     dbase.collection(option.tableName).insertMany(option.obj, function(err, res) {
                         if (err) throw err;
@@ -72,7 +73,7 @@ module.exports = {
         return new Promise(function (resolve,reject) {
             MongoClient.connect(url, function(err, db) {
                 if (err) throw err;
-                var dbase = db.db("blog");
+                var dbase = db.db(config.db);
                 dbase.collection(option.tableName).updateMany({_id:ObjectId(option.oldObj._id)},{$set:option.obj},function (err, res) {
                     if (err) throw err;
                     console.log(res.result.nModified + " 条文档被更新");
@@ -93,7 +94,7 @@ module.exports = {
         return new Promise(function (resolve,reject) {
             MongoClient.connect(url, function(err, db) {
                 if (err) throw err;
-                var dbase = db.db("blog");
+                var dbase = db.db(config.db);
                 dbase.collection(option.tableName).find(option.obj)
                     .sort(option.sort||{})
                     .toArray(function(err, result) { // 返回集合中所有数据

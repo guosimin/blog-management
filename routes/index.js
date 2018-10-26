@@ -4,6 +4,12 @@ const __template = require('../public/template/index');
 const mongodb = require('./common/mongo');
 const func = require('./common/func');
 
+let menu = mongodb.find({
+    tableName:'menu',
+    obj:{}
+});
+
+
 /**
  * 录入博文
  */
@@ -26,13 +32,17 @@ function write(link,data,callBack) {
  */
 
 router.get('/', async (ctx, next) => {
-  ctx.state.appName = '后台管理';
+    ctx.state.appName = '后台管理';
     ctx.state.data ={
-        tpl:'editor'
+        tpl:'editor',
+        aa:{
+            name:'aaa'
+        }
     }
-  await ctx.render('index/index', {
-    title: 'Hello Koa 2!'
-  });
+    ctx.state.data.menuList = await menu;
+    await ctx.render('index/index', {
+        title: 'Hello Koa 2!'
+    });
 });
 
 router.get('/release', async (ctx, next) => {
@@ -40,6 +50,7 @@ router.get('/release', async (ctx, next) => {
     ctx.state.data ={
         tpl:'editor'
     }
+    ctx.state.data.menuList = await menu;
     await ctx.render('index/index', {
         title: 'Hello Koa 2!'
     });
@@ -50,8 +61,9 @@ router.get('/list', async (ctx, next) => {
     ctx.state.data ={
         tpl:"list"
     }
+    ctx.state.data.menuList = await menu;
     ctx.state.data.list =await mongodb.find({
-        tableName:'list',
+        tableName:'article',
         obj:{},
         sort:{create_time:-1}
     });
@@ -63,8 +75,9 @@ router.get('/list/editor', async (ctx, next) => {
     ctx.state.data ={
         tpl:"editor"
     }
+    ctx.state.data.menuList = await menu;
     ctx.state.data.list =await mongodb.find({
-        tableName:'list',
+        tableName:'article',
         obj:{
             title:ctx.query&&ctx.query.name||''
         }
@@ -76,14 +89,17 @@ router.get('/list/editor', async (ctx, next) => {
 router.post('/fs', async(ctx, next) => {
     let data = ctx.request.body;
     let mongoPostData = {
-        tableName:'list',
+        tableName:'article',
         obj:{
             title: func.trim(data.title),
-            desc: data.desc,
+            desc: func.trim(data.desc),
             categories: func.trim(data.categories),
+            content:func.trim(data.content),
+            author:'',
             create_time: new Date().getTime(),
             status: 1,
-            update_time: new Date().getTime()
+            update_time: new Date().getTime(),
+            vister_number:0
         }
     };
     if(!data.isEditor){

@@ -63,7 +63,8 @@ $(document).ready(function () {
                 contentType: 'application/json',
                 data: JSON.stringify({
                     title:$("#input-area__input").val(),
-                    desc:editor.txt.html(),
+                    desc:$("#input-area__desc").val(),
+                    content:editor.txt.html(),
                     categories:$('#input-area__categories').val(),
                     time:time.format('YYYY-MM-DD'),
                     dataType:type,

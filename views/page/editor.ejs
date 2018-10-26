@@ -19,11 +19,20 @@
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">描述</label>
+            <label class="layui-form-label">类型</label>
             <div class="layui-input-block">
                 <input type="text"
                        id="input-area__categories"
                        name="title" v-model="list.categories"
+                       placeholder="请输入类型" maxlength="20" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-block">
+                <input type="text"
+                       id="input-area__desc"
+                       name="title" v-model="list.desc"
                        placeholder="请输入描述" maxlength="20" class="layui-input">
             </div>
         </div>
