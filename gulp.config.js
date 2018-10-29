@@ -15,6 +15,7 @@ module.exports = {
         // 'index':'./public/javascripts/page/index/index.js',
         'list':'./public/javascripts/page/index/list.js',
         'editor':'./public/javascripts/page/index/editor.js',
-        'users':'./public/javascripts/page/users/index.js'
+        'users':'./public/javascripts/page/users/index.js',
+        'login':'./public/javascripts/page/login/index.js'
     }
 }

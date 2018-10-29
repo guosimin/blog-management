@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./public/javascripts/page/users/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./public/javascripts/page/login/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -141,15 +141,15 @@ eval("var g;\r\n\r\n// This works in non-strict mode\r\ng = (function() {\r\n\tr
 
 /***/ }),
 
-/***/ "./public/javascripts/page/users/index.js":
+/***/ "./public/javascripts/page/login/index.js":
 /*!************************************************!*\
-  !*** ./public/javascripts/page/users/index.js ***!
+  !*** ./public/javascripts/page/login/index.js ***!
   \************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.js\");\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);\n/**\r\n * 用户列表\r\n *\r\n * Author:   gsm(qq:2479186745)\r\n * History:\r\n * Date         Version Remarks\r\n * ============ ======= ======================================================\r\n * 2018/10/29      1.0     First version\r\n *\r\n * Copyright 2016, all rights reserved. Essa.cn\r\n * */\r\n\r\n\r\n\r\n$(document).ready(function () {\r\n    function _init() {\r\n        new vue__WEBPACK_IMPORTED_MODULE_0___default.a({\r\n            el:'#app',\r\n            data:{\r\n                list:__DATA.list\r\n            },\r\n            filters:{\r\n                date:function (date,format) {\r\n                    if(isNaN(Number(date))){\r\n                        return '';\r\n                    }else{\r\n                        return moment(new Date(Number(date))).format(format);\r\n\r\n                    }\r\n                }\r\n            }\r\n        });\r\n    }\r\n\r\n    //-- =======================================初始化===========================================\r\n    _init();\r\n});\n\n//# sourceURL=webpack:///./public/javascripts/page/users/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.js\");\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);\n/**\r\n * 登录\r\n *\r\n * Author:   gsm(qq:2479186745)\r\n * History:\r\n * Date         Version Remarks\r\n * ============ ======= ======================================================\r\n * 2018/10/29      1.0     First version\r\n *\r\n * Copyright 2016, all rights reserved. Essa.cn\r\n * */\r\n\r\n\r\n\r\n$(document).ready(function () {\r\n    function _verify() {\r\n        $('#mpanel1').slideVerify({\r\n            type : 1,\t\t//类型\r\n            vOffset : 5,\t//误差量，根据需求自行调整\r\n            barSize : {\r\n                width : '100%',\r\n                height : '38px',\r\n            },\r\n            ready : function() {\r\n            },\r\n            success : function() {\r\n                alert('验证成功，添加你自己的代码！');\r\n                //......后续操作\r\n            },\r\n            error : function() {\r\n//        \talert('验证失败！');\r\n            }\r\n\r\n        });\r\n    }\r\n    function _init() {\r\n        _verify();\r\n    }\r\n\r\n    //-- =======================================初始化===========================================\r\n    _init();\r\n});\n\n//# sourceURL=webpack:///./public/javascripts/page/login/index.js?");
 
 /***/ })
 

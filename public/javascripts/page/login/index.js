@@ -1,5 +1,5 @@
 /**
- * 用户列表
+ * 登录
  *
  * Author:   gsm(qq:2479186745)
  * History:
@@ -13,23 +13,26 @@
 import Vue from 'vue';
 
 $(document).ready(function () {
-    function _init() {
-        new Vue({
-            el:'#app',
-            data:{
-                list:__DATA.list
+    function _verify() {
+        $('#mpanel1').slideVerify({
+            type : 1,		//类型
+            vOffset : 5,	//误差量，根据需求自行调整
+            barSize : {
+                width : '100%',
+                height : '38px',
             },
-            filters:{
-                date:function (date,format) {
-                    if(isNaN(Number(date))){
-                        return '';
-                    }else{
-                        return moment(new Date(Number(date))).format(format);
-
-                    }
-                }
+            ready : function() {
+            },
+            success : function() {
+                
+            },
+            error : function() {
             }
+
         });
+    }
+    function _init() {
+        _verify();
     }
 
     //-- =======================================初始化===========================================

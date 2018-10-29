@@ -1,0 +1,56 @@
+
+<html>
+<head>
+    <title>博客管理</title>
+    <style>
+        .login__wrap{text-align: center; width: 400px; margin: 0 auto; padding: 60px 0;}
+        .login__title{font-size: 30px;font-weight: bold; margin-bottom: 5px;}
+        .login__tip{margin-bottom: 20px;color: #999}
+        .login__register{text-align: right; margin-top: 20px;}
+        .login__register a{color: #009688;}
+
+        .verify-bar-area{-webkit-border-radius: 0!important;}
+    </style>
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="/lib/verify/css/verify.css">
+
+    <script src="/lib/jquery/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="/lib/verify/js/verify.min.js"></script>
+
+    <!--layui框架-->
+    <script src="/lib/layui/layui.all.js"></script>
+    <!--moment-->
+    <script src="/lib/moment/moment.min.js"></script>
+</head>
+<body>
+<div class="login__wrap">
+    <div class="login__title">MyBLOG</div>
+    <div class="login__tip">一个简单的博客管理系统</div>
+    <div>
+        <form class="layui-form layui-form-pane" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" placeholder="请输入标题" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-block">
+                    <input type="password" placeholder="请输入密码" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div id="mpanel1"></div>
+            </div>
+            <hr/>
+            <button class="layui-btn layui-btn-fluid" id="login__sumbit">登录</button>
+            <div class="login__register">
+                <a>注册帐号</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/dist/js/<%= locals.data.tpl%>.bundle.js"></script>
+</body>
+</html>

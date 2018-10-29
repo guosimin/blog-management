@@ -73,6 +73,14 @@ router.post('/fs', async(ctx, next) => {
 /**
  * 路由相关
  */
+router.get('/login', async (ctx, next) => {
+    ctx.state.appName = '登录';
+    ctx.state.data ={
+        tpl:'login'
+    }
+    await ctx.render('login', {});
+});
+
 router.get('/', async (ctx, next) => {
     ctx.state.appName = '博客发布';
     ctx.state.data ={
