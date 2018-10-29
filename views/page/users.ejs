@@ -1,0 +1,44 @@
+<script type="text/javascript">
+    window.__DATA =<%- JSON.stringify(locals.data) %>;
+    console.log(window.__DATA);
+</script>
+<div id="app" class="layui-body" style="padding: 0 15px; height: 100%;box-sizing: border-box;margin-bottom:-105px;">
+    <!-- 内容主体区域 -->
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend><%= appName%></legend>
+    </fieldset>
+    <div>
+        <table class="layui-table">
+            <thead>
+                <tr>
+                    <th width="85">头像</th>
+                    <th>用户名</th>
+                    <th>昵称</th>
+                    <th>邮箱</th>
+                    <th>等级</th>
+                    <th>注册时间</th>
+                    <th>最后登录时间</th>
+                    <th style="width: 70px;">管理</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in list">
+                    <td>
+                        <img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_86d58ae1.png" style="border: 1px solid #ccc;" width="80" height="80" alt="">
+                    </td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.nick_name}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.level}}</td>
+                    <td>{{item.register_time}}</td>
+                    <td>{{item.last_time}}</td>
+                    <td>
+                        <button class="layui-btn layui-btn-sm layui-btn-normal input-area__btn">禁用</button>
+                        <button class="layui-btn layui-btn-sm layui-btn-normal input-area__btn">删除</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="/dist/js/<%= locals.data.tpl%>.bundle.js"></script>

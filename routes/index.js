@@ -4,11 +4,6 @@ const __template = require('../public/template/index');
 const mongodb = require('./common/mongo');
 const func = require('./common/func');
 
-let menu = mongodb.find({
-    tableName:'menu',
-    obj:{}
-});
-
 
 /**
  * 录入博文
@@ -25,67 +20,6 @@ function write(link,data,callBack) {
         }
     });
 }
-
-
-/**
- * 路由相关
- */
-
-router.get('/', async (ctx, next) => {
-    ctx.state.appName = '后台管理';
-    ctx.state.data ={
-        tpl:'editor',
-        aa:{
-            name:'aaa'
-        }
-    }
-    ctx.state.data.menuList = await menu;
-    await ctx.render('index/index', {
-        title: 'Hello Koa 2!'
-    });
-});
-
-router.get('/release', async (ctx, next) => {
-    ctx.state.appName = '博客发布';
-    ctx.state.data ={
-        tpl:'editor'
-    }
-    ctx.state.data.menuList = await menu;
-    await ctx.render('index/index', {
-        title: 'Hello Koa 2!'
-    });
-});
-
-router.get('/list', async (ctx, next) => {
-    ctx.state.appName = '管理博客';
-    ctx.state.data ={
-        tpl:"list"
-    }
-    ctx.state.data.menuList = await menu;
-    ctx.state.data.list =await mongodb.find({
-        tableName:'article',
-        obj:{},
-        sort:{create_time:-1}
-    });
-    await ctx.render('index/index');
-});
-
-router.get('/list/editor', async (ctx, next) => {
-    ctx.state.appName = (ctx.query&&ctx.query.name)||'编辑';
-    ctx.state.data ={
-        tpl:"editor"
-    }
-    ctx.state.data.menuList = await menu;
-    ctx.state.data.list =await mongodb.find({
-        tableName:'article',
-        obj:{
-            title:ctx.query&&ctx.query.name||''
-        }
-    });
-    await ctx.render('index/index');
-});
-
-
 router.post('/fs', async(ctx, next) => {
     let data = ctx.request.body;
     let mongoPostData = {
@@ -136,5 +70,70 @@ router.post('/fs', async(ctx, next) => {
     }
 });
 
+/**
+ * 路由相关
+ */
+router.get('/', async (ctx, next) => {
+    ctx.state.appName = '博客发布';
+    ctx.state.data ={
+        tpl:'editor'
+    }
+    ctx.state.data.menuList = await mongodb.find({
+        tableName:'menu',
+        obj:{}
+    });
+    await ctx.render('index/index', {
+        title: 'Hello Koa 2!'
+    });
+});
+
+router.get('/release', async (ctx, next) => {
+    ctx.state.appName = '博客发布';
+    ctx.state.data ={
+        tpl:'editor'
+    }
+    ctx.state.data.menuList = await mongodb.find({
+        tableName:'menu',
+        obj:{}
+    });
+    await ctx.render('index/index', {
+        title: 'Hello Koa 2!'
+    });
+});
+
+router.get('/list', async (ctx, next) => {
+    ctx.state.appName = '管理博客';
+    ctx.state.data ={
+        tpl:"list"
+    }
+    ctx.state.data.menuList = await mongodb.find({
+        tableName:'menu',
+        obj:{}
+    });
+    ctx.state.data.list =await mongodb.find({
+        tableName:'article',
+        obj:{},
+        sort:{create_time:-1}
+    });
+    await ctx.render('index/index');
+});
+
+router.get('/list/editor', async (ctx, next) => {
+    ctx.state.appName = '编辑博客';
+    ctx.state.data ={
+        tpl:"editor"
+    }
+    ctx.state.data.menuList = await mongodb.find({
+        tableName:'menu',
+        obj:{}
+    });
+    ctx.state.data.list =await mongodb.find({
+        tableName:'article',
+        obj:{
+            title:ctx.query&&ctx.query.name||''
+        }
+    });
+    await ctx.render('index/index');
+});
 
 module.exports = router;
