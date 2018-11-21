@@ -13,7 +13,58 @@
 import Vue from 'vue';
 
 $(document).ready(function () {
-    function _verify() {
+    //vue实例
+    let vue;
+    /**
+     * 绑定事件
+     */
+    let bind ={
+        // 登录方法
+        __login:function () {
+            //点击了提交按钮
+            vue.params.isSubmit = true;
+            if(vue.params.name!=''&&vue.parmas.password!=''){
+                // layer.open({
+                //     type: 4,
+                //     content:'请输入账号或密码'
+                // });
+            }
+            if(!vue.params.verify){
+                // layer.open({
+                //     type: 4,
+                //     content:'请滑动验证码'
+                // })
+            }
+        }
+    }
+
+
+    /**
+     * 初始化vue
+     * @private
+     */
+    function _initVue() {
+        vue = new Vue({
+            el:'#app',
+            data:{
+                params:{
+                    name:'',
+                    password:'',
+                    verify:false,//验证码通过
+                    isSubmit:false
+                }
+            },
+            methods:{
+                login:bind.__login
+            }
+        });
+    }
+
+    /**
+     * 渲染验证组件
+     * @private
+     */
+    function _renderVerify() {
         $('#mpanel1').slideVerify({
             type : 1,		//类型
             vOffset : 5,	//误差量，根据需求自行调整
@@ -21,18 +72,16 @@ $(document).ready(function () {
                 width : '100%',
                 height : '38px',
             },
-            ready : function() {
-            },
             success : function() {
-                
-            },
-            error : function() {
+                vue.params.verify = true;
             }
 
         });
     }
+
     function _init() {
-        _verify();
+        _initVue();
+        _renderVerify();
     }
 
     //-- =======================================初始化===========================================

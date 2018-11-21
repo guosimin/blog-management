@@ -23,28 +23,30 @@
     <script src="/lib/moment/moment.min.js"></script>
 </head>
 <body>
-<div class="login__wrap">
+<div id="app" class="login__wrap">
     <div class="login__title">MyBLOG</div>
     <div class="login__tip">一个简单的博客管理系统</div>
     <div>
         <form class="layui-form layui-form-pane" action="">
-            <div class="layui-form-item">
+            <div class="layui-form-item" v-bind:style="{ boxShadow:  params.isSubmit&&params.name==''?'0px 0px 4px red':'none'}">
                 <label class="layui-form-label">用户名</label>
                 <div class="layui-input-block">
-                    <input type="text" placeholder="请输入标题" class="layui-input">
+                    <input type="text" placeholder="请输入用户名" class="layui-input"
+                           v-model="params.name">
                 </div>
             </div>
-            <div class="layui-form-item">
+            <div class="layui-form-item" v-bind:style="{ boxShadow:  params.isSubmit&&params.password==''?'0px 0px 4px red':'none'}">
                 <label class="layui-form-label">密码</label>
                 <div class="layui-input-block">
-                    <input type="password" placeholder="请输入密码" class="layui-input">
+                    <input type="password" placeholder="请输入密码" class="layui-input"
+                           v-model="params.password">
                 </div>
             </div>
-            <div class="layui-form-item">
+            <div class="layui-form-item" v-bind:style="{ boxShadow:  params.isSubmit&&!verify?'1px 0px 6px red':'none'}">
                 <div id="mpanel1"></div>
             </div>
             <hr/>
-            <button class="layui-btn layui-btn-fluid" id="login__sumbit">登录</button>
+            <button type="button" class="layui-btn layui-btn-fluid" id="login__sumbit" v-on:click="login">登录</button>
             <div class="login__register">
                 <a>注册帐号</a>
             </div>
