@@ -25,7 +25,6 @@ $(document).ready(function () {
                         return '';
                     }else{
                         return moment(new Date(Number(date))).format(format);
-
                     }
                 }
             }

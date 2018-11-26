@@ -20,6 +20,7 @@ function write(link,data,callBack) {
         }
     });
 }
+
 router.post('/fs', async(ctx, next) => {
     let data = ctx.request.body;
     let mongoPostData = {

@@ -8,6 +8,7 @@ const bodyparser = require('koa-bodyparser');
 // https://www.npmjs.com/package/koa-logger
 const logger = require('koa-logger'); //用于打印请求数据
 
+const api = require('./routes/api/index');
 const index = require('./routes/index');
 const users = require('./routes/users');
 
@@ -35,6 +36,7 @@ app.use(async (ctx, next) => {
 });
 
 // routes
+app.use(api.routes(), api.allowedMethods());
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
 

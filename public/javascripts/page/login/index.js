@@ -24,19 +24,40 @@ $(document).ready(function () {
             //点击了提交按钮
             vue.$set(vue.params, 'isSubmit', true);
             console.log(vue);
-            if(vue.params.name!=''&&vue.params.password!=''){
-                // layer.msg('请输入账号或密码');
-            }else{
+            if(!(vue.params.name!=''&&vue.params.password!='')){
                 layer.msg('请输入账号或密码');
                 return false;
             }
             if(!vue.params.verify){
                 layer.msg('请滑动验证码');
+                return false;
             }
+            //验证
+            bind.__verify(function (resp) {
+                if(resp.vaild){
+                    location.href = '/';
+                }else{
+                    layer.msg('你所输入的账号或密码错误，请重新输入');
+                }
+            });
         },
         //验证
-        __verify:function () {
-
+        __verify:function (callback) {
+            $.ajax({
+                url: "/api/login",
+                method : 'post',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    name:vue.params.name,
+                    password:vue.params.password
+                }),
+                dataType: 'json',
+                success: function(resp){
+                    if(typeof callback == 'function'){
+                        callback(resp);
+                    }
+                }
+            });
         }
     }
 
@@ -79,7 +100,6 @@ $(document).ready(function () {
                 // vue.$set(vue.params, 'verify', true);
                 // vue.params.verify = true;
                 vue.params = Object.assign({}, vue.params, { verify:true });
-
             }
 
         });

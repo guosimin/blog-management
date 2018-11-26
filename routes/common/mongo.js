@@ -26,7 +26,7 @@ module.exports = {
      */
     create:function (option={}) {
         return new Promise(function (resolve,reject) {
-            MongoClient.connect(url+'test', function (err, db) {
+            MongoClient.connect(url+'test', {useNewUrlParser:true}, function (err, db) {
                 if (err) throw err;
                 console.log('数据库已创建');
                 var dbase = db.db("blog");
@@ -47,7 +47,7 @@ module.exports = {
      */
     insert:function (option={}) {
         return new Promise(function (resolve,reject) {
-            MongoClient.connect(url, function(err, db) {
+            MongoClient.connect(url, {useNewUrlParser:true}, function(err, db) {
                 if (err) throw err;
                 var dbase = db.db(config.db);
                 if(Array.isArray(option.obj)){
@@ -71,15 +71,26 @@ module.exports = {
     },
     update:function (option={}) {
         return new Promise(function (resolve,reject) {
-            MongoClient.connect(url, function(err, db) {
+            MongoClient.connect(url, {useNewUrlParser:true}, function(err, db) {
                 if (err) throw err;
-                var dbase = db.db(config.db);
-                dbase.collection(option.tableName).updateMany({_id:ObjectId(option.oldObj._id)},{$set:option.obj},function (err, res) {
-                    if (err) throw err;
-                    console.log(res.result.nModified + " 条文档被更新");
-                    db.close();
-                    resolve();
-                });
+                let dbase = db.db(config.db);
+                let openTb = dbase.collection(option.tableName);
+                if(option.oldObj._id){
+                    openTb.updateMany({_id:ObjectId(option.oldObj._id)},{$set:option.obj},function (err, res) {
+                        if (err) throw err;
+                        console.log(res.result.nModified + " 条文档被更新");
+                        db.close();
+                        resolve();
+                    });
+                }else{
+                    openTb.updateMany(option.oldObj,{$set:option.obj},function (err, res) {
+                        if (err) throw err;
+                        console.log(res.result.nModified + " 条文档被更新");
+                        db.close();
+                        resolve();
+                    });
+                }
+
             });
         })
     },
@@ -92,7 +103,7 @@ module.exports = {
      */
     find:function (option={}) {
         return new Promise(function (resolve,reject) {
-            MongoClient.connect(url, function(err, db) {
+            MongoClient.connect(url, {useNewUrlParser:true}, function(err, db) {
                 if (err) throw err;
                 var dbase = db.db(config.db);
                 dbase.collection(option.tableName).find(option.obj)
