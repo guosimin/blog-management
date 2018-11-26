@@ -42,7 +42,7 @@
                            v-model="params.password">
                 </div>
             </div>
-            <div class="layui-form-item" v-bind:style="{ boxShadow:  params.isSubmit&&!verify?'1px 0px 6px red':'none'}">
+            <div class="layui-form-item" v-bind:style="{ boxShadow:  params.isSubmit&&!params.verify?'1px 0px 6px red':'none'}">
                 <div id="mpanel1"></div>
             </div>
             <hr/>

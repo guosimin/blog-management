@@ -22,19 +22,21 @@ $(document).ready(function () {
         // 登录方法
         __login:function () {
             //点击了提交按钮
-            vue.params.isSubmit = true;
-            if(vue.params.name!=''&&vue.parmas.password!=''){
-                // layer.open({
-                //     type: 4,
-                //     content:'请输入账号或密码'
-                // });
+            vue.$set(vue.params, 'isSubmit', true);
+            console.log(vue);
+            if(vue.params.name!=''&&vue.params.password!=''){
+                // layer.msg('请输入账号或密码');
+            }else{
+                layer.msg('请输入账号或密码');
+                return false;
             }
             if(!vue.params.verify){
-                // layer.open({
-                //     type: 4,
-                //     content:'请滑动验证码'
-                // })
+                layer.msg('请滑动验证码');
             }
+        },
+        //验证
+        __verify:function () {
+
         }
     }
 
@@ -57,6 +59,7 @@ $(document).ready(function () {
             methods:{
                 login:bind.__login
             }
+
         });
     }
 
@@ -73,7 +76,10 @@ $(document).ready(function () {
                 height : '38px',
             },
             success : function() {
-                vue.params.verify = true;
+                // vue.$set(vue.params, 'verify', true);
+                // vue.params.verify = true;
+                vue.params = Object.assign({}, vue.params, { verify:true });
+
             }
 
         });
