@@ -75,21 +75,19 @@ module.exports = {
                 if (err) throw err;
                 let dbase = db.db(config.db);
                 let openTb = dbase.collection(option.tableName);
-                if(option.oldObj._id){
-                    openTb.updateMany({_id:ObjectId(option.oldObj._id)},{$set:option.obj},function (err, res) {
-                        if (err) throw err;
-                        console.log(res.result.nModified + " 条文档被更新");
-                        db.close();
-                        resolve();
-                    });
-                }else{
-                    openTb.updateMany(option.oldObj,{$set:option.obj},function (err, res) {
-                        if (err) throw err;
-                        console.log(res.result.nModified + " 条文档被更新");
-                        db.close();
-                        resolve();
-                    });
-                }
+                let queryObj = (option.oldObj&&option.oldObj._id)?{_id:ObjectId(option.oldObj._id)}:option.oldObj;
+                openTb.updateMany(queryObj,{$set:option.obj},function (err, res) {
+                    if (err) throw err;
+                    console.log(res.result.nModified + " 条文档被更新");
+                    //返回修改过后的数据
+                    openTb.find(option.obj)
+                        .sort(option.sort||{})
+                        .toArray(function(err, result) { // 返回集合中所有数据
+                            if (err) throw err;
+                            db.close();
+                            resolve(result);
+                        });
+                });
 
             });
         })

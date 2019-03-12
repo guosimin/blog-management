@@ -34,7 +34,7 @@ $(document).ready(function () {
             }
             //验证
             bind.__verify(function (resp) {
-                if(resp.vaild){
+                if(resp.valid){
                     location.href = '/';
                 }else{
                     layer.msg('你所输入的账号或密码错误，请重新输入');

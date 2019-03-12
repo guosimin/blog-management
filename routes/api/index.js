@@ -12,43 +12,36 @@
 
 const router = require('koa-router')();
 const mongodb = require('../common/mongo');
-const md5 = require('md5-node');
+const crypto = require("crypto");
 
 router.prefix('/api');
 
 // 登录
 router.post('/login', async(ctx, next) => {
     let data = ctx.request.body;
+    let md5 = crypto.createHash("md5");
+    //123abc a906449d5769fa7361d7ecc6aa3f6d28
+    let newPassWord = md5.update(data.password).digest("hex");
     let mongoPostData = {
-        tableName: 'user',
+        tableName: 'users',
         obj:{
             last_time:Date.parse(new Date())
         },
         oldObj:{
             name:data.name,
-            password:md5(data.password)
+            password:newPassWord
         }
     }
-    let result = mongodb.update(mongoPostData);
-    if(result&&result.length==1){
-        await new Promise(function (resolve, reject) {
-            ctx.response.body = {
-                success:true,
-                valid:true,
-                message:'登录成功'
-            };
-            resolve();
-        });
-    }else{
-        await new Promise(function (resolve, reject) {
-            ctx.response.body = {
-                success:true,
-                valid:false,
-                message:'登录失败'
-            };
-            resolve();
-        });
-    }
+    let result = await mongodb.update(mongoPostData);
+    let isSuccess = result&&result.length==1?true:false;
+    await new Promise(function (resolve, reject) {
+        ctx.response.body = {
+            success:true,
+            valid:isSuccess,
+            message:isSuccess?'登录成功':'登录失败'
+        };
+        resolve(result);
+    });
 });
 
 module.exports = router;
